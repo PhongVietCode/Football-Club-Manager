@@ -1,10 +1,8 @@
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
+  Dialog, DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from "@/components/ui/dialog";
 import { useRef, useState } from "react";
 import { SelectorNumber } from "./SelectorNumber";

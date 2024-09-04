@@ -15,7 +15,7 @@ type SubMatchesDetailProps = {
 };
 export const SubMatchesDetail = (props: SubMatchesDetailProps) => {
   const { list, setList, matchId } = props;
-  const [updateScore, { isLoading: isUpdatingScore }] =
+  const [updateScore] =
     useUpdateSubMatchesMutation();
   return (
     <div className="flex-1 mt-4 flex flex-col md:px-52 max-md:px-0 gap-2">

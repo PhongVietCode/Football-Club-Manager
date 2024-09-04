@@ -96,7 +96,7 @@ export const SplitTeam = () => {
           <LoadingSpin />
         ) : (
           <div className="self-center">
-            <SubMatches subMatchList={subMatches} />
+            <SubMatches subMatchList={subMatches?.subMatches} />
           </div>
         )}
       </div>

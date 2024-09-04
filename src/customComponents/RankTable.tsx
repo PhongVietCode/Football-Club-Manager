@@ -1,4 +1,3 @@
-import { colorMap } from "@/constants";
 import { GiLaurelsTrophy } from "react-icons/gi";
 import { PiMedalFill } from "react-icons/pi";
 type RankTableProps = {
