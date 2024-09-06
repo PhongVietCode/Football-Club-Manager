@@ -32,6 +32,9 @@ const MainLayout = () => {
       .unwrap()
       .then(() => {
         navigate("home", { replace: true });
+      })
+      .catch(() => {
+        navigate("/auth/login", { replace: true });
       });
   }, []);
 
@@ -135,7 +138,9 @@ const MainLayout = () => {
               <NavLink
                 to="/home"
                 className={({ isActive }) =>
-                  `font-palanquin font-semibold ${isActive && "text-vRedLight scale-110"}`
+                  `font-palanquin font-semibold ${
+                    isActive && "text-vRedLight scale-110"
+                  }`
                 }
               >
                 Home
@@ -143,7 +148,9 @@ const MainLayout = () => {
 
               <NavLink
                 className={({ isActive }) =>
-                  `font-palanquin font-semibold ${isActive && "text-vRedLight scale-110"}`
+                  `font-palanquin font-semibold ${
+                    isActive && "text-vRedLight scale-110"
+                  }`
                 }
                 to="/leaderBoard"
               >
@@ -152,7 +159,9 @@ const MainLayout = () => {
 
               <NavLink
                 className={({ isActive }) =>
-                  `font-palanquin font-semibold ${isActive && "text-vRedLight scale-110"}`
+                  `font-palanquin font-semibold ${
+                    isActive && "text-vRedLight scale-110"
+                  }`
                 }
                 to="/profile"
               >
