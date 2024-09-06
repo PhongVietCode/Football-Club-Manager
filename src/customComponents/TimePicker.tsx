@@ -22,10 +22,10 @@ type TimePickerProps = {
 export const TimePicker = (props: TimePickerProps) => {
   const { field, arrayItem } = props;
   return (
-    <div className="flex flex-row gap-2 items-center">
+    <div className="flex flex-row gap-2 items-center text-black dark:text-white">
       <Select onValueChange={field.onChange} value={field.value}>
-        <SelectTrigger className="bg-vBlackLight max-w-24">
-          <SelectValue className="text-red-300" placeholder="Hour" />
+        <SelectTrigger className="dark:bg-vBlackLight max-w-24">
+          <SelectValue className="" placeholder="Hour" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>

@@ -5,20 +5,13 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
-const baseURI = import.meta.env.VITE_BACKEND_API_URL as string; // const makeApiCall = async (url: string, method: string,body: any, customHeaders: any) : Promise<any> => {
-//   try {
-//     const constructedURL = `${baseURI}/${url}`
-//     const response = await api.
-//   } catch (error: any) {
-
-//   }
-// }
-
+const baseURI = import.meta.env.VITE_BACKEND_API_URL as string;
 const baseQuery = fetchBaseQuery({
   baseUrl: `${baseURI}`,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.token;
+    const token = (getState() as RootState).auth.token || localStorage.getItem("accessToken");
+    
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }

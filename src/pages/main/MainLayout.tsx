@@ -3,8 +3,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useLazyGetInfoQuery } from "@/api/member";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
+import { MdOutlineDarkMode } from "react-icons/md";
+import { MdOutlineLightMode } from "react-icons/md";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,17 +21,28 @@ const MainLayout = () => {
   ] = useLazyGetInfoQuery();
   const [logout, { isLoading: isLogout }] = useLogoutMutation();
   const navigate = useNavigate();
-  const [isDarkMode, setIsDarkMode] = useState(0);
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("isDark")
+      ? localStorage.getItem("isDark") == "0"
+        ? false
+        : true
+      : false
+  );
   if (isDarkMode) {
     document.querySelector("html")?.classList.add("dark");
+    localStorage.setItem("isDark", "1");
   } else {
     document.querySelector("html")?.classList.remove("dark");
+    localStorage.setItem("isDark", "0");
   }
+
   useEffect(() => {
     getMemberInfo()
       .unwrap()
       .then(() => {
-        navigate("home", { replace: true });
+        navigate(sessionStorage.getItem("currentPath") || "home", {
+          replace: true,
+        });
       })
       .catch(() => {
         navigate("/auth/login", { replace: true });
@@ -41,7 +52,11 @@ const MainLayout = () => {
   return (
     <div className="w-screen h-screen flex flex-col bg-slate-50/15 dark:bg-vBlackBold/90">
       <nav className="w-full flex flex-row justify-between items-center px-8 py-2 bg-white dark:bg-vBlackLight shadow-md sticky top-0 z-50">
-        <Link to={"/home"} className="cursor-pointer">
+        <Link
+          to={"/home"}
+          className="cursor-pointer"
+          onClick={() => sessionStorage.setItem("currentPath", "/home")}
+        >
           <div className="flex flex-row items-center text-themed">
             <img
               src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/1200px-Manchester_United_FC_crest.svg.png"
@@ -53,25 +68,14 @@ const MainLayout = () => {
           </div>
         </Link>
         <div className="flex-1"></div>
-        <div className="flex items-center space-x-2">
-          <Switch
-            id="dark-mode"
-            value={isDarkMode}
-            onCheckedChange={(checked) => setIsDarkMode(checked ? 1 : 0)}
-          />
-          <Label
-            htmlFor="dark-mode"
-            className="font-palanquin font-semibold text-md"
-          >
-            Dark Mode
-          </Label>
-        </div>
-        <ul className="text-white flex flex-row flex-[0.4] justify-evenly max-xl:hidden">
+
+        <ul className="text-white flex flex-row flex-[0.4] justify-evenly max-2xl:hidden">
           <NavLink
             to="/home"
             className={({ isActive }) =>
               `nav-item ${isActive && "text-vRedLight scale-110"}`
             }
+            onClick={() => sessionStorage.setItem("currentPath", "/home")}
           >
             Home
           </NavLink>
@@ -81,6 +85,7 @@ const MainLayout = () => {
               `nav-item ${isActive && "text-vRedLight scale-110"}`
             }
             to="/leaderBoard"
+            onClick={() => sessionStorage.setItem("currentPath", "/leaderBoard")}
           >
             LeaderBoard
           </NavLink>
@@ -90,13 +95,14 @@ const MainLayout = () => {
               `nav-item ${isActive && "text-vRedLight scale-110"}`
             }
             to="/profile"
+            onClick={() => sessionStorage.setItem("currentPath", "/profile")}
           >
             Profile
           </NavLink>
         </ul>
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <div className="flex items-center gap-2 max-xl:mx-2">
+            <div className="flex items-center gap-2 max-2xl:mx-2">
               <div
                 className={`w-10 aspect-square ring-1 ring-black/20 dark:ring-white rounded-full bg-contain bg-no-repeat bg-center bg-[url('assets/images/ronaldo-mu.png')]`}
               ></div>
@@ -124,13 +130,12 @@ const MainLayout = () => {
             )}
           </DropdownMenuContent>
         </DropdownMenu>
-
         <DropdownMenu>
           <DropdownMenuTrigger>
             <GiHamburgerMenu
               color="red"
               size={24}
-              className="max-xl:block xl:hidden mx-2"
+              className="max-2xl:block 2xl:hidden mx-2"
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -167,7 +172,7 @@ const MainLayout = () => {
               >
                 Profile
               </NavLink>
-              <div className="flex gap-2">
+              {/* <div className="flex gap-2">
                 <Switch
                   id="dark-mode"
                   value={isDarkMode}
@@ -179,10 +184,20 @@ const MainLayout = () => {
                 >
                   Dark Mode
                 </Label>
-              </div>
+              </div> */}
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
+        <div
+          className="group hover:bg-black/10 rounded-lg ml-2 p-2"
+          onClick={() => setIsDarkMode(!isDarkMode)}
+        >
+          {isDarkMode ? (
+            <MdOutlineLightMode size={24} />
+          ) : (
+            <MdOutlineDarkMode size={24} />
+          )}
+        </div>
       </nav>
       <div className="flex-1 flex">
         {isLoadingUser || isFetchingUser ? (

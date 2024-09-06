@@ -1,6 +1,13 @@
 import moment from "moment";
 import { Link } from "react-router-dom";
-
+import { BsThreeDots } from "react-icons/bs";
+import { useDeleteMatchMutation } from "@/api/match";
+import { LoadingSpin } from "./LoadingSpin";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 type MatchCardInfoProps = {
   match: MatchInfoItemResponse;
   index: number;
@@ -8,17 +15,47 @@ type MatchCardInfoProps = {
 const MatchCardInfo = (props: MatchCardInfoProps) => {
   const { match, index } = props;
 
+  const [deleteMatch, { isLoading: isDeletingMatch }] =
+    useDeleteMatchMutation();
   return (
     <Link
       to={`/match/${match.id}`}
       state={{ id: match.id }}
       className="min-w-[200px] flex-1 sm:max-w-[300px]"
+      onClick={() => sessionStorage.setItem("currentPath", `/match/${match.id}`)}
+
     >
       <div
-        className="text-themed bg-white shadow-md backdrop-blur-sm hover:bg-white/50 dark:bg-vBlackLight dark:hover:bg-vBlackBold hover:-translate-y-1 transition-transform cursor-pointer rounded-md overflow-hidden"
+        className="group text-themed bg-white shadow-md backdrop-blur-sm hover:bg-white/50 dark:bg-vBlackLight dark:hover:bg-vBlackBold hover:-translate-y-1 transition-transform cursor-pointer rounded-md overflow-hidden"
         key={index}
       >
         <div className="bg-card bg-cover bg-center bg-no-repeat h-32 w-full">
+          <div className="flex justify-end p-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <BsThreeDots
+                  size={24}
+                  className="bg-black/30 rounded-lg hidden group-hover:block"
+                  color="white"
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {isDeletingMatch ? (
+                  <LoadingSpin />
+                ) : (
+                  <div
+                    className="cursor-pointer font-palanquin font-semibold"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      deleteMatch({ matchId: match.id });
+                    }}
+                  >
+                    Delete this match
+                  </div>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
           {match.scheduleTime && (
             <div className="backdrop-blur-md h-full flex flex-col items-center justify-center">
               <div className="font-palanquin font-semibold text-xl">

@@ -1,6 +1,6 @@
 import { MatchCardInfo } from "./MatchCardInfo";
 import { useGetMatchListQuery } from "@/api/match";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { LoadingSpin } from "./LoadingSpin";
 
 export const MatchList = () => {
   const {
@@ -12,11 +12,11 @@ export const MatchList = () => {
   return (
     <div className="">
       {isLoadingMatches || isFetchingMatches ? (
-        <AiOutlineLoading3Quarters className="animate-spin" />
+        <LoadingSpin/>
       ) : (
         <div>
           {!matches || matches.length == 0 ? (
-            <div className="text-white text-center">Matches not found</div>
+            <div className="dark:text-white text-center">Matches list is empty</div>
           ) : (
             <div
               className="flex flex-row flex-wrap gap-2"

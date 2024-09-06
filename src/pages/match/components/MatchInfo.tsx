@@ -105,16 +105,16 @@ export const MatchInfo = () => {
           <div className="flex justify-center my-4">
             <div className="flex rounded-lg overflow-hidden">
               <div
-                className={`px-28 py-2 max-sm:px-4 bg-vRedLight text-white font-palanquin font-semibold text-lg max-md:text-sm cursor-pointer ${
-                  currentView != 0 && "text-slate-900 bg-gray-200"
+                className={`px-28 py-2 max-sm:px-4 font-palanquin font-semibold text-lg max-md:text-sm cursor-pointer ${
+                  currentView != 0 ? "text-slate-900 bg-gray-200" : "bg-vRedLight text-white"
                 }`}
                 onClick={() => setCurrentView(0)}
               >
                 Match List:
               </div>
               <div
-                className={`px-28 py-2 max-sm:px-4 bg-vRedLight text-white font-palanquin font-semibold text-lg max-md:text-sm cursor-pointer ${
-                  currentView != 1 && "text-slate-900 bg-gray-200"
+                className={`px-28 py-2 max-sm:px-4  font-palanquin font-semibold text-lg max-md:text-sm cursor-pointer ${
+                  currentView != 1 ? "text-slate-900 bg-gray-200" : "bg-vRedLight text-white"
                 }`}
                 onClick={() => setCurrentView(1)}
               >

@@ -73,7 +73,7 @@ export const InputMatchInfo = () => {
   }
   return (
     <div className="w-full pt-16 flex flex-col items-center justify-center">
-      <div className="font-palanquin text-3xl pb-4 text-white">
+      <div className="font-palanquin font-semibold text-3xl pb-4 dark:text-white">
         Match Information
       </div>
       <Form {...form}>
@@ -86,12 +86,12 @@ export const InputMatchInfo = () => {
             name="fieldAdress"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Address*: </FormLabel>
+                <FormLabel className="text-black dark:text-white">Address*: </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Địa chỉ sân..."
                     {...field}
-                    className="text-black"
+                    className="text-black dark:text-white"
                   />
                 </FormControl>
                 <FormMessage />
@@ -104,15 +104,15 @@ export const InputMatchInfo = () => {
               name="eventDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col mt-2">
-                  <FormLabel>Date*: </FormLabel>
+                  <FormLabel className="text-black dark:text-white">Date*: </FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-[240px] pl-3 text-left font-palanquin text-vBlackLight",
-                            !field.value && "text-vBlackLight"
+                            "w-[240px] pl-3 text-left font-palanquin text-vBlackLight dark:text-white",
+                            !field.value && "text-vBlackLight dark:text-white"
                           )}
                         >
                           {field.value ? (
@@ -143,7 +143,7 @@ export const InputMatchInfo = () => {
                 name="eventHour"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Time*: </FormLabel>
+                    <FormLabel className="text-black dark:text-white">Time*: </FormLabel>
                     <FormControl>
                       <TimePicker field={field} arrayItem={Array(24)} />
                     </FormControl>

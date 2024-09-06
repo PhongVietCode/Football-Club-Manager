@@ -9,14 +9,14 @@ export const authApi = api.injectEndpoints({
         url: "/auth/log-in",
         method: "POST",
         body: data,
-        withCredentials: true,
       }),
       transformResponse: (response: ApiResponse<LoginResponse>) => {
+        localStorage.setItem("accessToken", response.result?.token || "");
         return handleResponse<LoginResponse>(response);
       },
       transformErrorResponse: (response: ErrorApiResponse) => {
         return handleErrorResponse(response);
-      }
+      },
     }),
     logout: build.mutation<string, void>({
       query: () => ({
@@ -25,6 +25,7 @@ export const authApi = api.injectEndpoints({
         withCredentials: true,
       }),
       transformResponse: (response: ApiResponse<string>) => {
+        localStorage.clear()
         return handleResponse<string>(response);
       },
       transformErrorResponse: (response: ErrorApiResponse) => {
@@ -49,4 +50,8 @@ export const authApi = api.injectEndpoints({
     }),
   }),
 });
-export const { useLoginMutation, useIntrospectTokenMutation, useLogoutMutation } = authApi;
+export const {
+  useLoginMutation,
+  useIntrospectTokenMutation,
+  useLogoutMutation,
+} = authApi;

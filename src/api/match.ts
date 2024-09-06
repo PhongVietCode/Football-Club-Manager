@@ -93,6 +93,7 @@ export const matchApi = api.injectEndpoints({
         url: `/matches/${data.matchId}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Matches"],
       transformResponse: (response: ApiResponse<string>) => {
         return handleResponse<string>(response);
       },

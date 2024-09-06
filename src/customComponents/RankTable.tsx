@@ -6,8 +6,8 @@ type RankTableProps = {
 export const RankTable = (props: RankTableProps) => {
   const { rankList } = props;
   return (
-    <div className="flex justify-center mb-4">
-      <div className="rounded-lg px-4 py-2 shadow-lg">
+    <div className="flex justify-center mb-4 ">
+      <div className="rounded-lg px-4 py-2 shadow-lg dark:border-[2px] dark:border-white">
         <div className="text-center font-palanquin font-semibold text-lg mb-4">
           Rank Table
         </div>
