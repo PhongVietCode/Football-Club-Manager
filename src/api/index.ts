@@ -5,7 +5,6 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
-import { useNavigate } from "react-router-dom";
 const baseURI = import.meta.env.VITE_BACKEND_API_URL as string; // const makeApiCall = async (url: string, method: string,body: any, customHeaders: any) : Promise<any> => {
 //   try {
 //     const constructedURL = `${baseURI}/${url}`
