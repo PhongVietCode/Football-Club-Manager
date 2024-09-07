@@ -1,10 +1,10 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useLazyGetInfoQuery } from "@/api/member";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
+import { jwtDecode } from "jwt-decode";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,9 +35,19 @@ const MainLayout = () => {
     document.querySelector("html")?.classList.remove("dark");
     localStorage.setItem("isDark", "0");
   }
+  const handleCheckToken = () => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      const decoded = jwtDecode(token);
+      if (decoded.exp && decoded.exp < (Date.now() / 1000)) {
+        localStorage.removeItem("accessToken");
+      }
+    }
+  };
 
   useEffect(() => {
-    getMemberInfo()
+    handleCheckToken();
+    getMemberInfo(undefined, true)
       .unwrap()
       .then(() => {
         navigate(sessionStorage.getItem("currentPath") || "home", {
@@ -85,7 +95,9 @@ const MainLayout = () => {
               `nav-item ${isActive && "text-vRedLight scale-110"}`
             }
             to="/leaderBoard"
-            onClick={() => sessionStorage.setItem("currentPath", "/leaderBoard")}
+            onClick={() =>
+              sessionStorage.setItem("currentPath", "/leaderBoard")
+            }
           >
             LeaderBoard
           </NavLink>
@@ -201,13 +213,8 @@ const MainLayout = () => {
       </nav>
       <div className="flex-1 flex">
         {isLoadingUser || isFetchingUser ? (
-          <div className="flex justify-center items-center">
-            <div className="animate-spin">
-              <AiOutlineLoading3Quarters
-                className="animate-spin"
-                color="white"
-              />
-            </div>
+          <div className="flex-1 flex justify-center items-center">
+            <LoadingSpin useIconAnimation title="Loading Member Information ..."/>
           </div>
         ) : (
           <div className="flex-1">

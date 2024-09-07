@@ -14,7 +14,7 @@ type PlayerResponse = {
 };
 
 type MemberUpdateEloRequest = {
-  elo: number;
+  elo?: number;
   id: string;
 };
 type MemberUpdateRoleRequest = {
@@ -23,4 +23,5 @@ type MemberUpdateRoleRequest = {
 };
 type MemberUpdateInfoRequest = {
   fullName: string;
+  id: string;
 };

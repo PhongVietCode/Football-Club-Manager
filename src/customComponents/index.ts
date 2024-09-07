@@ -9,7 +9,9 @@ import { DialogCreateMember } from "./DialogCreateMember";
 import { InputWithLabel } from "./InputWithLabel";
 import { SubMatches } from "./SubMatches";
 import { SubMatchesDetail } from "./SubMatchesDetail";
+import { MemberInfoItem } from "./MemberInfoItem";
 export {
+  MemberInfoItem,
   SubMatchesDetail,
   SubMatches,
   InputWithLabel,

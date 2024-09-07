@@ -10,12 +10,14 @@ type MatchResponse = {
   fieldAddress: string;
   creator_id: string;
   players: PlayerResponse[];
+  locked: boolean;
 };
 type MatchInfoResponse = {
   eventDate: number;
   fieldAddress: string;
   creatorFullName: string;
   teams: TeamSplitResponse[];
+  locked: boolean;
 };
 type MatchInfoItemResponse = {
   id: number;
@@ -23,6 +25,7 @@ type MatchInfoItemResponse = {
   fieldAddress: string;
   creatorFullName: string;
   scheduleTime?: string;
+  locked: boolean;
 };
 
 type MatchRegisterRequest = {
@@ -30,10 +33,11 @@ type MatchRegisterRequest = {
   matchId: number;
 };
 type MatchUpdateRequest = {
-  eventDate: string;
-  fieldAddress: string;
-  scheduleTime: string;
-  creatorId: string;
+  eventDate?: string;
+  fieldAddress?: string;
+  scheduleTime?: string;
+  creatorId?: string;
+  locked?: boolean;
 };
 type MatchResponseItem = {
   id: number;

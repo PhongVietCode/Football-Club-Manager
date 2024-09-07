@@ -47,7 +47,10 @@ export const matchApi = api.injectEndpoints({
       transformErrorResponse: (response: ErrorApiResponse) => {
         return handleErrorResponse(response);
       },
-    }),
+      providesTags: (result, error, arg) => [
+        { type: "Matches", id: arg.matchId },
+      ],
+    }), 
     getMatchList: build.query<MatchInfoItemResponse[], void>({
       query: () => `/matches`,
       transformResponse: (response: ApiResponse<MatchInfoItemResponse[]>) => {
@@ -56,7 +59,13 @@ export const matchApi = api.injectEndpoints({
       transformErrorResponse: (response: ErrorApiResponse) => {
         return handleErrorResponse(response);
       },
-      providesTags: ["Matches"],
+      providesTags: (result, error, arg) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "Matches" as const, id })),
+              "Matches",
+            ]
+          : ["Matches"],
     }),
     createMatch: build.mutation<MatchResponse, MatchCreateRequest>({
       query: (data) => ({
@@ -74,7 +83,7 @@ export const matchApi = api.injectEndpoints({
     }),
     updateMatch: build.mutation<
       MatchResponse,
-      MatchUpdateRequest & { matchId: string }
+      MatchUpdateRequest & { matchId: number }
     >({
       query: (data) => ({
         url: `/matches/${data.matchId}`,
@@ -87,6 +96,9 @@ export const matchApi = api.injectEndpoints({
       transformErrorResponse: (response: ErrorApiResponse) => {
         return handleErrorResponse(response);
       },
+      invalidatesTags: (result, error, arg) => [
+        { type: "Matches", id: arg.matchId },
+      ],
     }),
     deleteMatch: build.mutation<string, { matchId: number }>({
       query: (data) => ({

@@ -8,6 +8,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 type MatchCardInfoProps = {
   match: MatchInfoItemResponse;
   index: number;
@@ -15,6 +17,7 @@ type MatchCardInfoProps = {
 const MatchCardInfo = (props: MatchCardInfoProps) => {
   const { match, index } = props;
 
+  const user = useSelector((state: RootState) => state.user);
   const [deleteMatch, { isLoading: isDeletingMatch }] =
     useDeleteMatchMutation();
   return (
@@ -22,40 +25,43 @@ const MatchCardInfo = (props: MatchCardInfoProps) => {
       to={`/match/${match.id}`}
       state={{ id: match.id }}
       className="min-w-[200px] flex-1 sm:max-w-[300px]"
-      onClick={() => sessionStorage.setItem("currentPath", `/match/${match.id}`)}
-
+      onClick={() =>
+        sessionStorage.setItem("currentPath", `/match/${match.id}`)
+      }
     >
       <div
         className="group text-themed bg-white shadow-md backdrop-blur-sm hover:bg-white/50 dark:bg-vBlackLight dark:hover:bg-vBlackBold hover:-translate-y-1 transition-transform cursor-pointer rounded-md overflow-hidden"
         key={index}
       >
         <div className="bg-card bg-cover bg-center bg-no-repeat h-32 w-full">
-          <div className="flex justify-end p-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <BsThreeDots
-                  size={24}
-                  className="bg-black/30 rounded-lg hidden group-hover:block"
-                  color="white"
-                />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {isDeletingMatch ? (
-                  <LoadingSpin />
-                ) : (
-                  <div
-                    className="cursor-pointer font-palanquin font-semibold"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      deleteMatch({ matchId: match.id });
-                    }}
-                  >
-                    Delete this match
-                  </div>
-                )}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          {user.role == "GOLDEN_KEY" && (
+            <div className="flex justify-end p-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <BsThreeDots
+                    size={24}
+                    className="bg-black/30 rounded-lg hidden group-hover:block"
+                    color="white"
+                  />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {isDeletingMatch ? (
+                    <LoadingSpin />
+                  ) : (
+                    <div
+                      className="cursor-pointer font-palanquin font-semibold"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        deleteMatch({ matchId: match.id });
+                      }}
+                    >
+                      Delete this match
+                    </div>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          )}
           {match.scheduleTime && (
             <div className="backdrop-blur-md h-full flex flex-col items-center justify-center">
               <div className="font-palanquin font-semibold text-xl">

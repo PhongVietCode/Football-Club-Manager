@@ -12,7 +12,7 @@ const AuthLayout = () => {
     getMemberInfo()
       .unwrap()
       .then(() => {
-        navigate(sessionStorage.getItem("currentPath") || "home", {
+        navigate(sessionStorage.getItem("currentPath") || "/home", {
           replace: true,
         });
       })
@@ -21,21 +21,23 @@ const AuthLayout = () => {
       });
   }, []);
   return (
-    <div>
-      {isGettingMemberInfo ? (
-        <LoadingSpin />
-      ) : (
-        <div className="w-screen h-screen flex justify-center relative overflow-hidden">
-          <img
-            src={SoccerBall}
-            alt="Login Image"
-            className="absolute animate-spin-slow min-w-[1500px] max-md:min-w-[800px] top-1/2 -z-10"
-          />
+    <div className="">
+      <div className="w-screen h-screen flex justify-center relative overflow-hidden">
+        <img
+          src={SoccerBall}
+          alt="Login Image"
+          className="absolute animate-spin-slow min-w-[1500px] max-md:min-w-[800px] top-1/2 -z-10"
+        />
+        {isGettingMemberInfo ? (
+          <div className="w-screen h-screen flex justify-center items-center">
+            <LoadingSpin />
+          </div>
+        ) : (
           <div className="w-full flex justify-center items-center">
             <Outlet />
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

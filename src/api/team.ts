@@ -35,6 +35,9 @@ export const teamApi = api.injectEndpoints({
       transformErrorResponse: (response: ErrorApiResponse) => {
         return handleErrorResponse(response);
       },
+      invalidatesTags:(result, error, arg) => [
+        { type: "Matches", id: arg.matchId },
+      ],
     }),
     modifyTeam: build.mutation<
       string,

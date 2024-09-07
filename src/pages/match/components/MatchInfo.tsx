@@ -106,7 +106,9 @@ export const MatchInfo = () => {
             <div className="flex rounded-lg overflow-hidden">
               <div
                 className={`px-28 py-2 max-sm:px-4 font-palanquin font-semibold text-lg max-md:text-sm cursor-pointer ${
-                  currentView != 0 ? "text-slate-900 bg-gray-200" : "bg-vRedLight text-white"
+                  currentView != 0
+                    ? "text-slate-900 bg-gray-200"
+                    : "bg-vRedLight text-white"
                 }`}
                 onClick={() => setCurrentView(0)}
               >
@@ -114,7 +116,9 @@ export const MatchInfo = () => {
               </div>
               <div
                 className={`px-28 py-2 max-sm:px-4  font-palanquin font-semibold text-lg max-md:text-sm cursor-pointer ${
-                  currentView != 1 ? "text-slate-900 bg-gray-200" : "bg-vRedLight text-white"
+                  currentView != 1
+                    ? "text-slate-900 bg-gray-200"
+                    : "bg-vRedLight text-white"
                 }`}
                 onClick={() => setCurrentView(1)}
               >
@@ -125,13 +129,14 @@ export const MatchInfo = () => {
           {currentView == 0 ? (
             <div className="mb-16 ">
               <SubMatchesDetail
+                matchLocked={matchInfo?.locked}
                 list={subMatchList}
                 setList={setSubMatchList}
                 matchId={parseInt(id || "0")}
               />
             </div>
           ) : (
-            <RankTable rankList={subMatches?.leaderboard}/>
+            <RankTable rankList={subMatches?.leaderboard} />
           )}
         </div>
 

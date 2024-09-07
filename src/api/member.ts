@@ -13,7 +13,11 @@ export const memberApi = api.injectEndpoints({
       transformErrorResponse: (response: ErrorApiResponse) => {
         return handleErrorResponse(response);
       },
-      providesTags: ["Members"],
+      // providesTags: ["Members"],
+      providesTags: (result, error, arg) =>
+        result
+          ? [...result.map(({ id }) => ({ type: 'Members' as const, id })), 'Members']
+          : ['Members'],
     }),
     getInfo: build.query<MemberResponse, void>({
       query: () => "/members/info",
@@ -50,6 +54,7 @@ export const memberApi = api.injectEndpoints({
       transformErrorResponse: (response: ErrorApiResponse) => {
         return handleErrorResponse(response);
       },
+      invalidatesTags: (result, error, arg) => [{ type: 'Members', id: arg.id }],
     }),
     updateMemberInfo: build.mutation<MemberResponse, MemberUpdateInfoRequest>({
       query: (data) => ({
@@ -63,6 +68,7 @@ export const memberApi = api.injectEndpoints({
       transformErrorResponse: (response: ErrorApiResponse) => {
         return handleErrorResponse(response);
       },
+      invalidatesTags: (result, error, arg) => [{ type: 'Members', id: arg.id }],
     }),
     updateMemberRole: build.mutation<MemberResponse, MemberUpdateRoleRequest>({
       query: (data) => ({

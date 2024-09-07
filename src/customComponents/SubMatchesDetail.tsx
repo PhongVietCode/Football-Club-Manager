@@ -2,21 +2,23 @@ import { colorMap } from "@/constants";
 import {
   Dialog,
   DialogClose,
-  DialogContent, DialogFooter,
+  DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { useUpdateSubMatchesMutation } from "@/api/match";
+import { DialogDescription } from "@radix-ui/react-dialog";
 type SubMatchesDetailProps = {
   list: string[] | undefined;
   setList: React.Dispatch<React.SetStateAction<string[] | undefined>>;
   matchId: number | undefined;
+  matchLocked?: boolean;
 };
 export const SubMatchesDetail = (props: SubMatchesDetailProps) => {
-  const { list, setList, matchId } = props;
-  const [updateScore] =
-    useUpdateSubMatchesMutation();
+  const { list, setList, matchId, matchLocked } = props;
+  const [updateScore] = useUpdateSubMatchesMutation();
   return (
     <div className="flex-1 mt-4 flex flex-col md:px-52 max-md:px-0 gap-2">
       {list?.map((match, index) => {
@@ -89,94 +91,107 @@ export const SubMatchesDetail = (props: SubMatchesDetailProps) => {
                 </div>
               </div>
             </DialogTrigger>
-            <DialogContent className="">
-              <DialogHeader>
-                <DialogTitle>
-                  <div>Update score:</div>
-                  <div className="my-2">Match {index}</div>
-                </DialogTitle>
-              </DialogHeader>
-              <div>
-                <div className="flex flex-col">
-                  <div
-                    className={`flex flex-col px-4 text-center font-palanquin rounded-lg text-4xl ${firstTeamColor[0]}`}
-                  >
-                    {firstTeam}
-                  </div>
-                  <div className="font-newAmsterdam text-8xl p-0 m-0 text-black dark:text-white">
-                    <div className="flex justify-evenly my-2">
-                      <div
-                        className="border-[2px] px-4 rounded-md cursor-pointer"
-                        onClick={() => {
-                          if (parseInt(firstTeamScore) > 0)
+            {matchLocked ? (
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>
+                    <div>Match has been locked </div>
+                  </DialogTitle>
+                  <DialogDescription>
+                    You cannot update submatches scores anymore.
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            ) : (
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>
+                    <div>Update score:</div>
+                    <div className="my-2">Match {index}</div>
+                  </DialogTitle>
+                </DialogHeader>
+                <div>
+                  <div className="flex flex-col">
+                    <div
+                      className={`flex flex-col px-4 text-center font-palanquin rounded-lg text-4xl ${firstTeamColor[0]}`}
+                    >
+                      {firstTeam}
+                    </div>
+                    <div className="font-newAmsterdam text-8xl p-0 m-0 text-black dark:text-white">
+                      <div className="flex justify-evenly my-2">
+                        <div
+                          className="border-[2px] px-4 rounded-md cursor-pointer"
+                          onClick={() => {
+                            if (parseInt(firstTeamScore) > 0)
+                              hanleUpateSubmatch(
+                                index,
+                                parseInt(firstTeamScore) - 1,
+                                parseInt(secondTeamScore)
+                              );
+                          }}
+                        >
+                          -
+                        </div>
+                        <div>{firstTeamScore}</div>
+                        <div
+                          className="border-[2px] px-4 rounded-md cursor-pointer"
+                          onClick={() => {
                             hanleUpateSubmatch(
                               index,
-                              parseInt(firstTeamScore) - 1,
+                              parseInt(firstTeamScore) + 1,
                               parseInt(secondTeamScore)
                             );
-                        }}
-                      >
-                        -
+                          }}
+                        >
+                          +
+                        </div>
                       </div>
-                      <div>{firstTeamScore}</div>
-                      <div
-                        className="border-[2px] px-4 rounded-md cursor-pointer"
-                        onClick={() => {
-                          hanleUpateSubmatch(
-                            index,
-                            parseInt(firstTeamScore) + 1,
-                            parseInt(secondTeamScore)
-                          );
-                        }}
-                      >
-                        +
-                      </div>
-                    </div>
-                    <div className="flex justify-evenly my-2">
-                      <div
-                        className="border-[2px] px-4 rounded-md cursor-pointer"
-                        onClick={() => {
-                          if (parseInt(secondTeamScore) > 0)
+                      <div className="flex justify-evenly my-2">
+                        <div
+                          className="border-[2px] px-4 rounded-md cursor-pointer"
+                          onClick={() => {
+                            if (parseInt(secondTeamScore) > 0)
+                              hanleUpateSubmatch(
+                                index,
+                                parseInt(firstTeamScore),
+                                parseInt(secondTeamScore) - 1
+                              );
+                          }}
+                        >
+                          -
+                        </div>
+                        <div>{secondTeamScore}</div>
+                        <div
+                          className="border-[2px] px-4 rounded-md cursor-pointer"
+                          onClick={() => {
                             hanleUpateSubmatch(
                               index,
                               parseInt(firstTeamScore),
-                              parseInt(secondTeamScore) - 1
+                              parseInt(secondTeamScore) + 1
                             );
-                        }}
-                      >
-                        -
-                      </div>
-                      <div>{secondTeamScore}</div>
-                      <div
-                        className="border-[2px] px-4 rounded-md cursor-pointer"
-                        onClick={() => {
-                          hanleUpateSubmatch(
-                            index,
-                            parseInt(firstTeamScore),
-                            parseInt(secondTeamScore) + 1
-                          );
-                        }}
-                      >
-                        +
+                          }}
+                        >
+                          +
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className={`flex flex-col px-4 text-center font-palanquin rounded-lg text-4xl ${secondTeamColor[0]}`}
-                  >
-                    <div>{secondTeam}</div>
+                    <div
+                      className={`flex flex-col px-4 text-center font-palanquin rounded-lg text-4xl ${secondTeamColor[0]}`}
+                    >
+                      <div>{secondTeam}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <DialogFooter>
-                <DialogClose
-                  className="bg-red-600 text-white hover:bg-vRedBold px-8 py-2 flex-1 rounded-md"
-                  onClick={handleSaveSubMatchesList}
-                >
-                  Save
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
+                <DialogFooter>
+                  <DialogClose
+                    className="bg-red-600 text-white hover:bg-vRedBold px-8 py-2 flex-1 rounded-md"
+                    onClick={handleSaveSubMatchesList}
+                  >
+                    Save
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            )}
           </Dialog>
         );
       })}

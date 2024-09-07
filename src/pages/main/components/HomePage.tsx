@@ -4,6 +4,7 @@ import { IoAddOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { HiOutlineUserGroup } from "react-icons/hi";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -19,17 +20,31 @@ const HomePage = () => {
             {user.fullName} !
           </span>
         </div>
-        <div className="self-end max-md:mt-2">
-          {user.role == "GOLDEN_KEY" && (
-            <Button
-              className="bg-vRedBold hover:bg-vRedLight hover:shadow-2xl"
-              onClick={() => navigate("/create-match/step-1")}
-            >
-              <IoAddOutline className="mr-2" />
-              <span>Create new match</span>
-            </Button>
-          )}
-        </div>
+        {user.role == "GOLDEN_KEY" && (
+          <div className="flex gap-2 max-md:mt-2 max-sm:flex-col">
+            <div className="max-sm:flex-1">
+              <Button
+                className="bg-vRedBold hover:bg-vRedLight hover:shadow-2xl"
+                onClick={() => {
+                  navigate("/members")
+                  sessionStorage.setItem("currentPath", "/members")
+                }}
+              >
+                <HiOutlineUserGroup className="mr-2" size={20}/>
+                <span>Members Management</span>
+              </Button>
+            </div>
+            <div className="">
+              <Button
+                className="bg-vRedBold hover:bg-vRedLight hover:shadow-2xl"
+                onClick={() => navigate("/create-match/step-1")}
+              >
+                <IoAddOutline className="mr-2" size={20} />
+                <span>Create new match</span>
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
       <div className="flex flex-col">
         <div className="big-title mb-3">This week matches:</div>

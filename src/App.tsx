@@ -9,6 +9,7 @@ import {
   Profile,
   MatchLayout,
   CreateMatchLayout,
+  MemberLayout,
 } from "@/pages";
 import {
   AddPlayerManual,
@@ -32,6 +33,7 @@ function App() {
         </Route>
         <Route path="leaderboard" element={<LeaderBoard />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="members" element={<MemberLayout />} />
       </Route>
       <Route path="/auth" element={<AuthLayout />}>
         <Route index path="login" element={<Login />} />
