@@ -37,7 +37,10 @@ export const AddPlayerManual = () => {
         .then((result) => {
           if (result) {
             if (newMember != undefined) {
-              setTeams((oldTeams) => [[...oldTeams[0], newMember], oldTeams[1]]);
+              setTeams((oldTeams) => [
+                [...oldTeams[0], newMember],
+                oldTeams[1],
+              ]);
             } else {
               setTeams([result.notRegisteredMembers, result.registeredMembers]);
             }
@@ -66,9 +69,11 @@ export const AddPlayerManual = () => {
   }
   return (
     <div className="flex-1 h-full">
-      <div className="big-title text-3xl text-center text-black dark:text-white">Add Player To Team</div>
-      <div className="flex flex-row items-end justify-center gap-2 mb-4">
-        <div className="mr-4 flex flex-row gap-4">
+      <div className="big-title text-3xl text-center text-black dark:text-white">
+        Add Player To Team
+      </div>
+      <div className="flex max-md:flex-col justify-between gap-2 mb-4">
+        <div className="md:mr-4 flex max-md:flex-1 max-md:justify-between gap-4">
           <SelectorNumber
             label="Team Count*:"
             arrayItem={Array.from(Array(7).keys())}
@@ -92,17 +97,14 @@ export const AddPlayerManual = () => {
             placeholder="Type player name..."
             value={playerName}
             onChange={(event) => setPlayerName(event.target.value)}
-            // onKeyDown={(event) => {
-            //   if (event.key == "Enter") {
-            //     setOpenDialog(true);
-            //   }
-            // }}
           />
         </div>
-        <DialogCreateMember
-          playerName={playerName}
-          refetch={handleGetRegisterMemberList}
-        />
+        <div className="self-end max-md:self-center">
+          <DialogCreateMember
+            playerName={playerName}
+            refetch={handleGetRegisterMemberList}
+          />
+        </div>
       </div>
       <div className="flex flex-row flex-wrap gap-10">
         {isLoadingMemberList || isFetchingMemberList ? (

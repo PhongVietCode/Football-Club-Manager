@@ -92,7 +92,7 @@ export const SubMatchesDetail = (props: SubMatchesDetailProps) => {
               </div>
             </DialogTrigger>
             {matchLocked ? (
-              <DialogContent>
+              <DialogContent className="max-w-[90%] max-h-screen">
                 <DialogHeader>
                   <DialogTitle>
                     <div>Match has been locked </div>

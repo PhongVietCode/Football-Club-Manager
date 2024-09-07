@@ -33,6 +33,7 @@ const Login = () => {
     },
   });
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    localStorage.removeItem("accessToken")
     login(data)
       .unwrap()
       .then(() => {
