@@ -1,3 +1,4 @@
 import { handleResponse } from "./handleResponse";
 import { handleErrorResponse, handleQueryStart } from "./handleErrorResponse";
-export { handleErrorResponse, handleQueryStart, handleResponse };
+import { removeSpecialCharacters } from "./handleRemoveSpecialCharacter";
+export { handleErrorResponse, handleQueryStart, handleResponse,removeSpecialCharacters };
