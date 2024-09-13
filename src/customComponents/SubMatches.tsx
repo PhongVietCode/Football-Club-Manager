@@ -17,7 +17,7 @@ export const SubMatches = (props: SubMatchesProps) => {
           const secondTeamColor = colorMap.get(secondTeam);
           return (
             <div className="border-[1px] border-dashed rounded-md border-black dark:border-white" key={index}>
-              <div className="text-center font-palanquin font-bold">{index}</div>
+              <div className="text-center font-palanquin font-bold">{index + 1}</div>
               <div className="flex flex-col justify-center text-center text-black font-bold min-w-[100px]">
                 <div className={`p-2 ${firstTeamColor[0]}`}>{firstTeam}</div>
                 <div className={`p-2 ${secondTeamColor[0]}`}>{secondTeam}</div>
