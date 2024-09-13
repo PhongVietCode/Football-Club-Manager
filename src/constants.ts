@@ -350,5 +350,6 @@ colorMap.set("BLUE", ["bg-[#3FA2F6]", "bg-[#D1E9F6]"]);
 colorMap.set("UNKNOWN", ["bg-[#EEEEEE]", "bg-[#FFF8DB]"]);
 colorMap.set("BLACK", ["bg-[#1A2130]", "bg-[#9EC8B9]"]);
 colorMap.set("YELLOW", ["bg-[#FEEFAD]", "bg-[#FFFDB5]"]);
+colorMap.set("WHITE", ["bg-[#F5F5F5]", "bg-[#F5F7F8]"]);
 
 export { colorMap };
