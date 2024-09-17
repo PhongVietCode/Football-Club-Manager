@@ -29,7 +29,7 @@ export const MatchList = () => {
               //   display: "grid",
               //   gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
               //   justifyContent: "center",
-              //   gap: 10,
+              //   gap: 4,
               // }}
             >
               {matches.map((item, index) => (

@@ -68,7 +68,15 @@ export const SplitTeam = () => {
       <div className="big-title my-4">List Players</div>
       <div className="flex flex-row flex-wrap gap-2">
         {isSplitingTeam ? (
-          <AiOutlineLoading3Quarters className="animate-spin" />
+          <div className="w-full h-[300px] flex items-center gap-4">
+            {Array.from(Array(3).keys()).map((index) => (
+              <div className="flex-1 h-[300px] bg-gray-100 animate-pulse rounded-lg flex flex-col gap-1 p-4">
+                {Array.from(Array(5).keys()).map((index) => (
+                  <div className="flex-1 bg-gray-200 animate-pulse rounded-md" />
+                ))}
+              </div>
+            ))}
+          </div>
         ) : (
           <DragAndDrop
             player_teams={teams}
@@ -80,7 +88,7 @@ export const SplitTeam = () => {
       </div>
       <div className="flex justify-evenly my-4">
         {isSplitingTeam ? (
-          <AiOutlineLoading3Quarters className="animate-spin" />
+          <div className="bg-gray-200 w-[200px] h-10 rounded-md animate-pulse"></div>
         ) : (
           <Button
             className="bg-vRedBold hover:bg-vRedLight px-16 py-2 font-semibold"
@@ -91,7 +99,12 @@ export const SplitTeam = () => {
         )}
       </div>
       <div className="flex flex-col">
-        <div className="big-title my-2">List Match: <span className="font-palanquin font-medium">(this function just work well for a match with 4 teams)</span></div>
+        <div className="big-title my-2">
+          List Match:{" "}
+          <span className="font-palanquin font-medium">
+            (this function just work well for a match with 4 teams)
+          </span>
+        </div>
         {isGettingSubMatches ? (
           <LoadingSpin />
         ) : (

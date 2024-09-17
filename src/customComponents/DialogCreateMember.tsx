@@ -26,7 +26,7 @@ export const DialogCreateMember = (props: DialogCreateMemberProps) => {
   const dialogRef = useRef<HTMLDivElement | null>(null);
   function submit() {
     register({
-      fullName: removeSpecialCharacters(fullName),
+      fullName: fullName,
       password: "123456",
       elo: parseFloat(choosenElo),
     })

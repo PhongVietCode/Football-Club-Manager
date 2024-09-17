@@ -24,7 +24,7 @@ const MatchCardInfo = (props: MatchCardInfoProps) => {
     <Link
       to={`/match/${match.id}`}
       state={{ id: match.id }}
-      className="min-w-[200px] flex-1 sm:max-w-[300px]"
+      className="min-w-[250px] flex-1 sm:max-w-[300px]"
       onClick={() =>
         sessionStorage.setItem("currentPath", `/match/${match.id}`)
       }

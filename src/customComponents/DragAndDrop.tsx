@@ -123,52 +123,53 @@ export const DragAndDrop = (props: DragAndDropProps) => {
                             {player.elo}
                           </span>
                           {supportClick &&
-                          player_teams.indexOf(team) !=
+                            (player_teams.indexOf(team) !=
                             player_teams.length - 1 ? (
-                            <div
-                              onClick={() => {
-                                const indexOfTeam = player_teams.indexOf(team);
-                                const newTeams = [...player_teams];
-                                const result: MemberResponse[][] = [];
-                                result[indexOfTeam] = Array.from(newTeams[0]);
-                                result[indexOfTeam + 1] = Array.from(
-                                  newTeams[1]
-                                );
-                                const [removed] = result[0].splice(index, 1);
-                                result[1].splice(0, 0, removed);
-                                setPlayerTeams(result);
-                              }}
-                              className="px-3 py-1 bg-white/5 rounded-lg hover:bg-vRedBold cursor-pointer"
-                            >
-                              <FaArrowRightLong size={22} />
-                            </div>
-                          ) : (
-                            <div
-                              onClick={() => {
-                                const indexOfTeam = player_teams.length - 1;
-                                const newTeams = [...player_teams];
-                                const result: MemberResponse[][] = [];
-                                result[indexOfTeam] = Array.from(
-                                  newTeams[indexOfTeam]
-                                );
-                                result[indexOfTeam - 1] = Array.from(
-                                  newTeams[indexOfTeam - 1]
-                                );
-                                const [removed] = result[indexOfTeam].splice(
-                                  index,
-                                  1
-                                );
-                                result[indexOfTeam - 1].splice(0, 0, removed);
-                                setPlayerTeams(result);
-                              }}
-                              className="px-3 py-1 bg-white/5 rounded-lg hover:bg-vRedBold cursor-pointer"
-                            >
-                              <FaArrowRightLong
-                                size={22}
-                                className="rotate-180"
-                              />
-                            </div>
-                          )}
+                              <div
+                                onClick={() => {
+                                  const indexOfTeam =
+                                    player_teams.indexOf(team);
+                                  const newTeams = [...player_teams];
+                                  const result: MemberResponse[][] = [];
+                                  result[indexOfTeam] = Array.from(newTeams[0]);
+                                  result[indexOfTeam + 1] = Array.from(
+                                    newTeams[1]
+                                  );
+                                  const [removed] = result[0].splice(index, 1);
+                                  result[1].splice(0, 0, removed);
+                                  setPlayerTeams(result);
+                                }}
+                                className="px-3 py-1 bg-white/5 rounded-lg hover:bg-vRedBold cursor-pointer"
+                              >
+                                <FaArrowRightLong size={22} />
+                              </div>
+                            ) : (
+                              <div
+                                onClick={() => {
+                                  const indexOfTeam = player_teams.length - 1;
+                                  const newTeams = [...player_teams];
+                                  const result: MemberResponse[][] = [];
+                                  result[indexOfTeam] = Array.from(
+                                    newTeams[indexOfTeam]
+                                  );
+                                  result[indexOfTeam - 1] = Array.from(
+                                    newTeams[indexOfTeam - 1]
+                                  );
+                                  const [removed] = result[indexOfTeam].splice(
+                                    index,
+                                    1
+                                  );
+                                  result[indexOfTeam - 1].splice(0, 0, removed);
+                                  setPlayerTeams(result);
+                                }}
+                                className="px-3 py-1 bg-white/5 rounded-lg hover:bg-vRedBold cursor-pointer"
+                              >
+                                <FaArrowRightLong
+                                  size={22}
+                                  className="rotate-180"
+                                />
+                              </div>
+                            ))}
                         </div>
                       </div>
                     </div>
