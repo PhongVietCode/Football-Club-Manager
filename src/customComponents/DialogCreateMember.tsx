@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { useRegisterMutation } from "@/api/member";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { removeSpecialCharacters } from "@/common";
 type DialogCreateMemberProps = {
   open?: boolean;
   setOpen?: setState<boolean>;
